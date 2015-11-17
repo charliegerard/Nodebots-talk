@@ -162,14 +162,14 @@
 
 				<section>
 					<h2>Basically...</h2>
-					<img src="http://media1.giphy.com/media/nyqcW6uV0Hsze/giphy.gif">
+					<img src="https://media.giphy.com/media/VHngktboAlxHW/giphy.gif">
 				</section>
 
 				<section>
 					<section id="fragments3">
-						<h2>Microcontrollers and shit but also...</h2>
+						<h2>Microcontrollers and stuff but also...</h2>
 						<div class="fragment">
-							<h2>DEVICES!!!!!!!!</h2>
+							<h2>DEVICES!!!</h2>
 							<img src="http://i35.photobucket.com/albums/d152/MattyLats/mindblown.gif" width="100%" height="100%">
 						</div>
 					</section>
@@ -181,8 +181,13 @@
 				</section>
 
 				<section>
-					<h2>Leap Motion / Sphero / Drone</h2>
-					<img class="leapmotion-drone-sphero" src="images/sphero-drone-leapmotion.png">
+					<section>
+						<h2>Leap Motion / Sphero / Drone</h2>
+						<img class="leapmotion-drone-sphero" src="images/sphero-drone-leapmotion.png">
+					</section>
+					<section>
+						<h2>Demo!</h2>
+					</section>
 				</section>
 
 				<section>
@@ -407,73 +412,73 @@
 							<img src="http://img.pandawhale.com/post-28553-Steve-Jobs-mind-blown-gif-HD-T-pVbd.gif" style="width: 70%">
 						</p>
 					</section>
+
 					<section>
 						<h2>But...</h2>
 						<p class="fragment">
 							NO JAVASCRIPT FRAMEWORK
 						</p>
 					</section>
+
 					<section>
 						<h2>Solution</h2>
 						<p>Node.js addon using node-gyp</p>
 					</section>
-					<section>
-						<section data-markdown>
-							<script type="text/template">
-								###Hello World
-								#### In binding.cc
-								```
-								#include <node.h>
-								#include <v8.h>
 
-								using namespace v8;
-
-								void Method(const FunctionCallbackInfo<Value>& args) {
-								  Isolate* isolate = Isolate::GetCurrent();
-								  HandleScope scope(isolate);
-								  args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
-								}
-
-								void init(Handle<Object> target) {
-								  NODE_SET_METHOD(target, "hello", Method);
-								}
-
-								NODE_MODULE(binding, init);
-								```
-							</script>
-						</section>
-					</section>
-					<section>
-						<section data-markdown>
-							<script type="text/template">
-								###Hello World
-								#### In binding.gyp
-								```
-								{
-								  'targets': [
-								    {
-								      'target_name': 'binding',
-								      'sources': [ 'binding.cc' ]
-								    }
-								  ]
-								}
+					<section data-markdown>
+						<script type="text/template">
+							###Hello World
+							#### In binding.cc
 							```
-							</script>
-						</section>
-					</section>
-					<section>
-						<section data-markdown>
-							<script type="text/template">
-							#### In test.js
+							#include <node.h>
+							#include <v8.h>
+
+							using namespace v8;
+
+							void Method(const FunctionCallbackInfo<Value>& args) {
+							  Isolate* isolate = Isolate::GetCurrent();
+							  HandleScope scope(isolate);
+							  args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
+							}
+
+							void init(Handle<Object> target) {
+							  NODE_SET_METHOD(target, "hello", Method);
+							}
+
+							NODE_MODULE(binding, init);
 							```
-								var assert = require('assert');
-								var binding = require('./build/Release/binding');
-								assert.equal('world', binding.hello());
-								console.log('binding.hello() =', binding.hello());
-							```
-							</script>
-						</section>
+						</script>
 					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							###Hello World
+							#### In binding.gyp
+							```
+							{
+							  'targets': [
+							    {
+							      'target_name': 'binding',
+							      'sources': [ 'binding.cc' ]
+							    }
+							  ]
+							}
+						```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						#### In test.js
+						```
+							var assert = require('assert');
+							var binding = require('./build/Release/binding');
+							assert.equal('world', binding.hello());
+							console.log('binding.hello() =', binding.hello());
+						```
+						</script>
+					</section>
+
 					<section>
 						<h2>IT'S WORKING</h2>
 						<img src="https://media.giphy.com/media/GA2FNpP1kAQNi/giphy.gif" style="width: 100%">
