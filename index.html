@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Programming for robots in JavaScript by Charlie Gerard</title>
+
+		<meta name="description" content="A presentation on programming for the Sphero and Leap Motion with Node.js">
+		<meta name="author" content="Charlie Gerard">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Nodebots</h1>
+					<h2>Programming for robots in JavaScript</h2>
+					<p>
+						<small>by <a href="http://charliegerard.github.io"> Charlie Gerard</a> / <a href="http://twitter.com/charlie__gerard">@charlie__gerard</a></small>
+					</p>
+				</section>
+
+				<section>
+					<section id="fragments">
+						<h2>What are Nodebots?</h2>
+						<img src="https://avatars2.githubusercontent.com/u/4650383?v=3&s=400">
+						<li class="fragment">Robots controlled by Node.js</li>
+						<li class="fragment">Wheels, motion detectors, LEDs, etc...</li>
+						<li class="fragment">Node-serialport, Firmata, Node.js, Johnny-Five</li>
+					</section>
+				</section>
+
+				<section>
+					<section id="fragments2">
+						<h2>What is Johnny-Five?</h2>
+						<img src="http://photos.adron.me/Software/Meetups-N-Conferences/Nodebots-Day-Portland/i-GKTVbNz/0/S/sgier-johnny-five-S.png">
+						<li class="fragment">Original JavaScript Robotics Framework</li>
+						<li class="fragment">Large support of different platforms</li>
+						<li class="fragment">Easy to get started</li>
+						<li class="fragment">Awesome community</li>
+					</section>
+				</section>
+
+				<section>
+						<h2>The 'Hello World' of hardware?</h2>
+						<h3>Blinking an LED</h3>
+						<img src="http://johnny-five.io/img/breadboard/led-resistor.png" style="width: 500px">
+				</section>
+
+
+				<section>
+					<section data-markdown>
+							<script type="text/template">
+								##Code
+								```
+								var five = require("johnny-five");
+								var board = new five.Board();
+
+								board.on("ready", function() {
+								  var led = new five.Led(13);
+								  led.blink(500);
+								});
+								```
+
+								If you need to specify the port
+								```
+								var board = new five.Board({
+									port: "/dev/cu.usbmodem1411"
+								});
+								```
+							</script>
+						</section>
+				</section>
+
+				<section>
+					<h2>What can I build?</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>A Marble Maze</h2>
+						<iframe width="420" height="315" src="https://www.youtube.com/embed/gseRG3MDlIA" frameborder="0" allowfullscreen></iframe>
+					</section>
+					<section>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/wh3zvkMly10" frameborder="0" allowfullscreen></iframe>
+					</section>
+					<section>
+						<iframe width="700" height="500" src="https://www.youtube.com/embed/K_Beko3CFV4" frameborder="0" allowfullscreen></iframe>
+					</section>
+				</section>
+
+				<section>
+					<h2>The Build Cat!!!!!</h2>
+					<img src="./images/buildcat.gif" style="width: 100%"/>
+				</section>
+
+				<section>
+					<img src="./images/engagement.png" style="width: 100%"/>
+				</section>
+
+				<section>
+					<h2>Cylon.js</h2>
+					<img src="http://cylonjs.com/images/elements/soldier.svg">
+					<li>Really easy to use</li>
+					<li>Large support of platforms and components</li>
+				</section>
+
+				<section>
+					<section data-markdown>
+							<script type="text/template">
+								##'Hello World' in Cylon.js
+								```
+								var Cylon = require("cylon");
+
+								// Initialize the robot
+								Cylon.robot({
+								  // Change the port to the correct port for your Arduino.
+								  connections: {
+								    arduino: { adaptor: 'firmata', port: '/dev/ttyACM0' }
+								  },
+
+								  devices: {
+								    led: { driver: 'led', pin: 13 }
+								  },
+
+								  work: function(my) {
+								    every((1).second(), function() {
+								      my.led.toggle();
+								    });
+								  }
+								}).start();
+								```
+							</script>
+						</section>
+				</section>
+
+				<section>
+					<h2>Basically...</h2>
+					<img src="https://media.giphy.com/media/VHngktboAlxHW/giphy.gif">
+				</section>
+
+				<section>
+					<section id="fragments3">
+						<h2>Microcontrollers and stuff but also...</h2>
+						<div class="fragment">
+							<h2>DEVICES!!!</h2>
+							<img src="http://i35.photobucket.com/albums/d152/MattyLats/mindblown.gif" width="100%" height="100%">
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<h2>Examples...</h2>
+					<img src="./images/platforms.png" style="width: 600px">
+				</section>
+
+				<section>
+					<section>
+						<h2>Leap Motion / Sphero / Drone</h2>
+						<img class="leapmotion-drone-sphero" src="images/sphero-drone-leapmotion.png">
+					</section>
+					<section>
+						<h2>Demo!</h2>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							###App.js file
+							```
+								var express = require('express'),
+								    path = require('path');
+
+								var app = express();
+
+								var module = require('./my_modules/sphero');
+								module();
+
+								app.use(express.static(path.join(__dirname, 'public')));
+								app.use(express.static(path.join(__dirname, 'views')));
+
+								app.all('*', function(req, res){
+								  res.sendfile('views/index.html');
+								});
+
+								app.listen(3001);
+								console.log("server running on port 3001");
+							```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							##### module created
+							```
+								module.exports = function() {
+								  var Leap = require('leapjs');
+								  var spheron = require('spheron');
+
+								  var device = '/dev/tty.Sphero-RBR-AMP-SPP';
+
+								  var controlSphero = function(sphero) {
+  									var controller = new Leap.Controller({frameEventName:'deviceFrame', enableGestures:true});
+  									    controller.on('frame', function(frame) {
+								          if (frame.gestures.length) {
+								            var g = frame.gestures[0];
+
+								            if (g.type == 'swipe') { // && g.state ==='stop') {
+								              handleSwipe(g);
+								            }
+								          }
+     									});
+
+     									var handleSwipe = function(g) {
+								          var X = g.position[0] - g.startPosition[0];
+								          var Y = g.position[1] - g.startPosition[1];
+								          var Z = g.position[2] - g.startPosition[2];
+
+								          var aX = Math.abs(X);
+								          var aY = Math.abs(Y);
+								          var aZ = Math.abs(Z);
+
+								          var big = Math.max(aX, aY, aZ);
+								          console.log(['x:', aX, 'y:', aY, 'z:', aZ].join(' ');
+
+								          var direction = '?';
+
+								          if (aX === big) {
+								            direction = 'RIGHT';
+								            if (X < 0) {
+								              direction = 'LEFT';
+								            }
+								          } else if (aY === big) {
+								            direction = 'UP';
+								            if (Y < 0) {
+								              direction = 'DOWN';
+								            }
+								          } else if (aZ === big) {
+								            direction = 'REVERSE';
+								            if (Z < 0) {
+								              direction = 'FORWARD';
+								            }
+								          }
+								          controller.connect();
+								      }
+  								  }
+  								}
+
+							```
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							<h3><a href="http://cylonjs.com" target="blank">Cylon.js</a></h3>
+
+							```
+								var Cylon = require('cylon');
+
+								Cylon.robot({
+									connections: {
+										leapmotion: {adaptor: 'leapmotion'},
+										sphero: {adaptor: 'sphero', port: '/dev/tty.Sphero-RBR-AMP-SPP'}
+									},
+
+									devices: {
+										leapmotion: {driver: 'leapmotion', connection: 'leapmotion'},
+										sphero: {driver: 'sphero', connection: 'sphero'}
+									},
+
+									work: function(my){
+										my.leapmotion.on('frame', function(frame){
+											my.sphero.roll(70,0,1);
+										});
+									}
+								}).start();
+							```
+						</script>
+					</section>
+				</section>
+
+				<section id="fragments5">
+					<section>
+						<h3>Myo / Sphero / Drone</h3>
+						<p class="fragment">
+							<img class="myo" src="images/Myo_sphero_drone.png"></br>
+							<img src="http://media0.giphy.com/media/MOWPkhRAUbR7i/giphy.gif">
+						</p>
+					</section>
+
+					<section id="fragments4">
+						<h1>Live demo!</h1>
+						<h2 class="fragment">But first...</h2>
+						<img class="fragment" src="images/robotgif.gif" style="width: 600px">
+					</section>
+
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							###Code - [Repo](http://charliegerard.github.io/myo_sphero)
+
+							```
+							var spheron = require('spheron');
+							var myo = require('myo');
+
+							myo = Myo.create();
+
+							var device = '/dev/tty.Sphero-RBR-AMP-SPP';
+
+							var controlSphero = function(sphero) {
+								myo.on('wave_out', function(){
+									myo.setLockingPolicy();
+									console.log('RIGHT');
+									sphero.heading = 90;
+									sphero.roll(70, 90, 1);
+								})
+
+								myo.on('wave_in', function(){
+									console.log('LEFT!');
+									sphero.roll(70, 270, 1);
+								})
+
+								myo.on('fist', function(){
+									console.log('FORWARD');
+									sphero.roll(70, 0, 1);
+								})
+
+								myo.on('fingers_spread', function(){
+								    stopSphero(sphero);
+									ball.setRGB(spheron.toolbelt.COLORS.WHITE).setBackLED(255);
+								})
+							};
+							```
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section id="fragments6">
+						<h3>Neurosky / Sphero / Drone</h3>
+						<p class="fragment"><img class="neurosky" src="images/sphero-drone-neurosky.png" style="width: 700px"></br>
+						<img src="https://media.giphy.com/media/olmyX3Ns0nk4M/giphy.gif" style="width: 80%" />
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							###Code
+							```
+							var Cylon = require('cylon');
+
+							Cylon.robot({
+								connections: {
+									neurosky: {adaptor: 'neurosky', port: '/dev/tty.MindWaveMobile-DevA'},
+									sphero: {adaptor: 'sphero', port: '/dev/tty.Sphero-RBR-AMP-SPP'}
+								},
+
+								devices: {
+									headset: {driver: 'neurosky', connection: 'neurosky'},
+									sphero: {driver: 'sphero', connection: 'sphero'}
+								},
+
+								work: function(my){
+									my.headset.on('attention', function(data){
+										console.log('attention: ' + data);
+										if(data > 100){
+											my.sphero.roll(60, Math.floor(Math.random() * 360);
+										}
+									});
+								}
+							});
+							```
+						</script>
+					</section>
+				</section>
+
+				<section id="fragments7">
+					<section>
+						<h3>Emotiv / Sphero / Drone</h3>
+						<p class="fragment">
+							<img class="myo" src="https://emotiv.com/include/home/images/section1-epoc.png"></br>
+							<img src="http://img.pandawhale.com/post-28553-Steve-Jobs-mind-blown-gif-HD-T-pVbd.gif" style="width: 70%">
+						</p>
+					</section>
+
+					<section>
+						<h2>But...</h2>
+						<p class="fragment">
+							NO JAVASCRIPT FRAMEWORK
+						</p>
+					</section>
+
+					<section>
+						<h2>Solution</h2>
+						<p>Node.js addon using node-gyp</p>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							###Hello World
+							#### In binding.cc
+							```
+							#include <node.h>
+							#include <v8.h>
+
+							using namespace v8;
+
+							void Method(const FunctionCallbackInfo<Value>& args) {
+							  Isolate* isolate = Isolate::GetCurrent();
+							  HandleScope scope(isolate);
+							  args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
+							}
+
+							void init(Handle<Object> target) {
+							  NODE_SET_METHOD(target, "hello", Method);
+							}
+
+							NODE_MODULE(binding, init);
+							```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							###Hello World
+							#### In binding.gyp
+							```
+							{
+							  'targets': [
+							    {
+							      'target_name': 'binding',
+							      'sources': [ 'binding.cc' ]
+							    }
+							  ]
+							}
+						```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						#### In test.js
+						```
+							var assert = require('assert');
+							var binding = require('./build/Release/binding');
+							assert.equal('world', binding.hello());
+							console.log('binding.hello() =', binding.hello());
+						```
+						</script>
+					</section>
+
+					<section>
+						<h2>IT'S WORKING</h2>
+						<img src="https://media.giphy.com/media/GA2FNpP1kAQNi/giphy.gif" style="width: 100%">
+					</section>
+					<section>
+						<h3>DEMO!!!</h3>
+						<img src="images/fail.gif" style="width: 1000px;">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Resources</h3>
+						<div  style="text-align: left;">
+							<p>Ideas</p>
+							<ul>
+								<li><a href="https://hackaday.io/">Hackaday.io</a></li>
+								<li><a href="https://www.hackster.io/">Hackster.io</a></li>
+								<li><a href="http://makezine.com/projects/">Make magazine</a></li>
+							</ul>
+							<p>..............................</p>
+							<p>Material</p>
+							<ul>
+								<li><a href="http://littlebirdelectronics.com.au/">Little Birds Electronics</a></li>
+								<li><a href="https://www.sparkfun.com/">Sparkfun</a></li>
+								<li><a href="https://www.adafruit.com/">Adafruit</a></li>
+							</ul>
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Special Thanks!</h1>
+					</section>
+
+					<section>
+						<img src="images/mum.jpg" style="display: inline-block; width: 30%" />
+						<img src="images/dad.jpg" style="display: inline-block; width: 30%" />
+					</section>
+
+					<section>
+						<img src="images/joel.png" style="width: 50%" />
+					</section>
+
+					<section>
+						<img src="images/daisy.jpg" style="width: 50%" />
+					</section>
+
+				</section>
+
+				<section>
+					<h1>Thank you!</h1>
+					<p>Twitter: <a href="http://www.twitter.com/charlie__gerard" target="blank">@charlie__gerard</a></p>
+					<p>Github: <a href="http://www.github.com/charliegerard" target="blank">charliegerard</a></p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
